@@ -33,35 +33,67 @@ class Solution3 {
       this.bounds["top"] = i
     }
   }
-  searchCircleLeft(i, j){
+  search(i, j, prevDir){
+    if (j<this.bounds['right'] && j>this.bounds['left']) return
+    switch (prevDir) {
+      case "left":
+        this.searchPrevDirLeft(i, j)
+        break;
+      case "right":
+        this.searchPrevDirRight(i, j)
+        break;
+      case "down":
+        this.searchPrevDirDown(i, j)
+        break;
+      case "up":
+        this.searchPrevDirUp(i, j)
+        break;
+      default:
+        this.searchPrevDirLeft(i, j)
+    }
+  }
+  searchPrevDirLeft(i, j){
     if (this.checkCell(i, j-1)){
-      this.searchCircleLeft(i, j-1)
+      this.search(i, j-1, "left")
     } else if (this.checkCell(i+1, j)){
-        this.searchCircleLeft(i+1, j)
-      } else {
-        this.searchCircleBottom(i, j+1)
+        this.search(i+1, j, "down")
+      } else if (this.checkCell(i-1, j)){
+        this.search(i-1, j, "up")
       }
   }
-  searchCircleBottom(i, j){
+  searchPrevDirRight(i, j){
     if (this.checkCell(i+1, j)){
-      this.searchCircleBottom(i+1, j)
+      this.search(i+1, j, "down")
     } else if (this.checkCell(i, j+1)){
-      this.searchCircleBottom(i, j+1)
-    } else {
-      this.searchCircleRight(i-1, j)
-    }
-  }
-  searchCircleRight(i, j){
-    if (this.checkCell(i, j+1)){
-      this.searchCircleRight(i, j+1)
+      this.search(i, j+1, "right")
     } else if (this.checkCell(i-1, j)){
-      this.searchCircleRight(i-1, j)
-    }
+      this.search(i-1, j, "up")
+      }
+  }
+  searchPrevDirDown(i, j){
+    if (this.checkCell(i, j-1)){
+      this.search(i, j-1, "left")
+    } else if (this.checkCell(i+1, j)){
+        this.search(i+1, j, "down")
+      } else if (this.checkCell(i, j+1)){
+        this.checkCell(i, j+1)
+        this.search(i, j+1, "right")
+      }
+  }
+  searchPrevDirUp(i, j){
+    if (this.checkCell(i, j+1)){
+      this.search(i, j+1, "right")
+    } else if (this.checkCell(i-1, j)){
+        this.search(i-1, j, "up")
+      } else if (this.checkCell(i, j-1)){
+        this.search(i, j-1, "left")
+      }
   }
 
   checkCell(i, j){
     if (this.visited[`${i}${j}`] == true) return false
     if (i < 0 || i > 9 || j < 0 || j > 9) return false
+    // console.log(i, j)
     this.cellCount ++
     if (this.matrix[i][j] == 0){
       this.visited[`${i}${j}`] = true

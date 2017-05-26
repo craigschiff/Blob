@@ -18,10 +18,10 @@ Solutions one and two make no assumptions about the shape of the blob. Instead, 
 
 
 #### Solution 3:
-Solution three is the optimal solution given an understanding of the typical shape of a blob. This solution traverses the outside of the blob accounting for its circular nature. The assumption is that a blob would not be designed to circumvent this, i.e. you would not have a blob going directly right only to come down and go directly left. If that is not a reasonable assumption I would use solution one or two instead. Matrix2 on the Solution3Runner.js page is an example of where this algorithm would not work.
+Solution three is the optimal solution given an understanding of the typical shape of a blob. This solution traverses the outside of the blob accounting for its circular nature. The assumption is that a blob would not have any filled cell where the only connection to the rest of the blob is the cell it came from. Said another way, there would be no lone cell jutting out from the rest of the blob.  If that is not a reasonable assumption I would use solution one or two instead. Matrix2 on the Solution3Runner.js page is an example of where this algorithm would not work. The reason why is that once we have visited a cell we do not want to visit it again, and if there is a jut we would have to allow for re-visiting the same cell thus making the algorithm less efficient.
 
-The searchCircleLeft method looks down and left. Then it calls the searchCircleBottom which looks down and right and calls the searchCircleRight method. The searchCircleRight method looks up and right.
+This solution has one search function that redirects to different methods to determine path based on the previous direction. We start at the top of the blob and generally travel down and left first. Once we are starting to go right we hit the bottom of the circle and eventually move in the direction of up and right. The goal is to always hit the boundaries, and thus I am ordering the steps in each method with that in mind. Based on the example matrix cell count would be 36.
 
 
 #### Time Spent
-I spent ~4 hours on this. If I was to spend more time I would have created simple unit tests.
+I spent ~4 hours on this total including brainstorming, starting with simple iteration, and then optimizing towards the boundaries and memoization. If I was to spend more time I would have created simple unit tests.
