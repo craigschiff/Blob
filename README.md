@@ -1,6 +1,6 @@
 ## Blob Boundary
 
-I provided three solutions to find the top, bottom, left, and right boundaries. Each solution tracks the number of cells read. They also contain a store of all cells visited to ensure no cell is read twice. I am aware there is no practical optimization with the store, but am simply solving for minimizing the number of matrix cells visited as the instructions suggest. All code is in javascript.
+I provided three solutions to find the top, bottom, left, and right boundaries. Each solution tracks the number of cells read. They also contain a store of all cells visited to ensure no cell is read twice. I am aware there is no practical optimization with the store, but am simply minimizing the number of matrix cells visited as the instructions suggest. All code is in javascript.
 
 
 The constructors take an argument of an array of 10 arrays. Each of the 10 arrays has length 10. I assume all data is valid and do not include validations or ways to handle error messages.
